@@ -1,9 +1,7 @@
 package services;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import proyecto.BBDD;
+import dao.AlumnoDAO;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.core.Context;
@@ -25,7 +23,7 @@ import pojos.Alumno;
 @Path("alumnos")
 public class AlumnosResource {
 
-    private BBDD bd;
+    private AlumnoDAO alumnodao;
 
     @Context
     private UriInfo context;
@@ -34,48 +32,33 @@ public class AlumnosResource {
      * Creates a new instance of AlumnosResource
      */
     public AlumnosResource() {
-        bd = new BBDD();
+        alumnodao=new AlumnoDAO();
     }
 
     @GET
     @Produces({"application/xml", "application/json"})
-    public void getListaAlumnos() {
-
+    public List<Alumno> getListaAlumnos() {
+        return alumnodao.obtenListado();
     }
 
     @GET
     @Path("/{id}")
     @Produces({"application/xml", "application/json"})
     public Alumno getAlumno(@PathParam("id") int id) {
-        Alumno a = null;
-        try {
-            bd.ejecutarConsulta("SELECT * FROM alumnos WHERE id = " + id);
-            bd.getResultado();
-            while (bd.getResultado().next()) {
-                a = new Alumno(bd.getResultado().getString("Nombre"),
-                        bd.getResultado().getString("Apellidos"),
-                        bd.getResultado().getDate("FechaAlta"),
-                        bd.getResultado().getDate("FechaNacimiento"),
-                        bd.getResultado().getString("CuadroClinico"));
-            }
-            bd.cerrarConexion();
-        } catch (SQLException ex) {
-            Logger.getLogger(AlumnosResource.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return a;
+        return alumnodao.obtenItem(id);
     }
 
     @POST
     @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json"})
-    public Alumno annadirAlumno() {
-        return new Alumno();
+    public Alumno annadirAlumno(Alumno alumno) {
+        return alumnodao.guardar(alumno);
     }
 
     @PUT
     @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json"})
-    public String modificarAlumno(@PathParam("alumno") String content) {
+    public String modificarAlumno(@PathParam("content") String content) {
         return "Ha añadido al alumno " + content;
     }
 
@@ -83,6 +66,7 @@ public class AlumnosResource {
     @Path("/delete/{id}")
     @Produces("text/plain" + ";charset=utf-8")
     public String borrarAlumno(@PathParam("id") int id) {
+        alumnodao.borrar(id);
         return "Se ha borrado el alumno " + id;
     }
 
@@ -90,17 +74,6 @@ public class AlumnosResource {
     @Path("/count")
     @Produces({"text/plain" + ";charset=utf-8"})
     public String contarAlumnos() {
-        int total = 0;
-        try {
-            bd.ejecutarConsulta("SELECT COUNT(*) AS total FROM alumnos");
-            bd.getResultado();
-            while (bd.getResultado().next()) {
-                total=bd.getResultado().getInt("total");
-            }
-            bd.cerrarConexion();
-        } catch (SQLException ex) {
-            Logger.getLogger(AlumnosResource.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return String.valueOf(total);
+        return String.valueOf(alumnodao.total());
     }
 }
