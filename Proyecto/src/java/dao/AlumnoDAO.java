@@ -58,6 +58,7 @@ public class AlumnoDAO implements IDAO {
     /**
      * Obtiene el listado de alumnos asociados a un monitor, es decir, la lista
      * de alumnos a los cuales ha creado alguna tabla dicho monitor
+     *
      * @param monitor Id del monitor
      * @return Lista de alumnos
      */
@@ -72,17 +73,14 @@ public class AlumnoDAO implements IDAO {
     }
 
     public Alumno guardar(Alumno alumno) {
-        int id = 0;
         iniciaOperacion();
         try {
-            id = (int) s.save(alumno);
+            s.persist(alumno);
         } catch (HibernateException e) {
             t.rollback();
             System.out.println(e.getMessage());
         }
         finalizaOperacion();
-
-        alumno.setId(id);
 
         return alumno;
     }

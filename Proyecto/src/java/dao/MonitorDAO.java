@@ -44,6 +44,20 @@ public class MonitorDAO implements IDAO {
         return a;
     }
 
+    /**
+     * Devuelve el monitor correspondiente al hash pasado en caso de que exista
+     * @param hash 
+     * @return 
+     */
+    public Monitor obtenItem(String hash) {
+        Monitor m;
+
+        iniciaOperacion();
+        m = (Monitor) s.createSQLQuery("SELECT * FROM monitores WHERE SHA2(CONCAT(monitores.Nombre, monitores.Apellidos),256) LIKE :hash").addEntity(Monitor.class).setParameter("hash", hash).uniqueResult();
+
+        return m;
+    }
+
     public List<Monitor> obtenListado() {
         List<Monitor> lista;
         iniciaOperacion();
@@ -54,17 +68,14 @@ public class MonitorDAO implements IDAO {
     }
 
     public Monitor guardar(Monitor monitor) {
-        int id = 0;
         iniciaOperacion();
         try {
-            id = (int) s.save(monitor);
+            s.persist(monitor);
         } catch (HibernateException e) {
             t.rollback();
             System.out.println(e.getMessage());
         }
         finalizaOperacion();
-
-        monitor.setId(id);
 
         return monitor;
     }
@@ -94,4 +105,5 @@ public class MonitorDAO implements IDAO {
         finalizaOperacion();
         return total;
     }
+
 }

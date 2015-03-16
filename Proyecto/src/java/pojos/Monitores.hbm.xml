@@ -14,5 +14,8 @@
         <property name="apellidos" type="string">
             <column name="Apellidos" length="64" />
         </property>
+        <property name="administrador" type="java.lang.Integer">
+            <column name="Administrador" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>

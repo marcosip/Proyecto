@@ -15,6 +15,7 @@ import org.hibernate.Transaction;
 import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.eq;
 import pojos.Alumno;
+import pojos.Ejercicio;
 import pojos.Lineasejercicio;
 import pojos.Tabla;
 import proyecto.HibernateUtil;
@@ -78,7 +79,6 @@ public class TablaDAO implements IDAO {
                 setFetchMode("alumno", FetchMode.JOIN).
                 setFetchMode("monitor", FetchMode.JOIN).
                 add(eq("alumno", new Alumno(alumno))).
-                
                 list();
 
         for (Tabla item : lista) {

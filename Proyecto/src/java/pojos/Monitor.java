@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement(name = "monitor")
-@XmlType(propOrder = {"nombre", "apellidos", "link"})
+@XmlType(propOrder = {"nombre", "apellidos", "administrador", "link"})
 public class Monitor implements java.io.Serializable {
 
     @XmlAttribute
@@ -23,6 +23,8 @@ public class Monitor implements java.io.Serializable {
     private String nombre;
     @XmlElement
     private String apellidos;
+    @XmlElement
+    private Integer administrador;
     @Transient
     private LinkBean link;
 
@@ -40,6 +42,12 @@ public class Monitor implements java.io.Serializable {
     public Monitor(String nombre, String apellidos) {
         this.nombre = nombre;
         this.apellidos = apellidos;
+    }
+
+    public Monitor(String nombre, String apellidos, Integer administrador) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.administrador = administrador;
     }
 
     public Integer getId() {
@@ -64,6 +72,14 @@ public class Monitor implements java.io.Serializable {
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
+    }
+
+    public Integer isAdministrador() {
+        return this.administrador;
+    }
+
+    public void setAdministrador(Integer administrador) {
+        this.administrador = administrador;
     }
 
     @XmlElement

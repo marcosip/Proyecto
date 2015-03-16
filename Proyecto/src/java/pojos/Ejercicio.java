@@ -1,6 +1,7 @@
 package pojos;
 // Generated 27-feb-2015 11:03:57 by Hibernate Tools 4.3.1
 
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -20,6 +21,8 @@ public class Ejercicio implements java.io.Serializable {
     private Integer id;
     @XmlElement
     private String nombre;
+    @Transient
+    private LinkBean link;
 
     public Ejercicio() {
     }
@@ -43,6 +46,15 @@ public class Ejercicio implements java.io.Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public LinkBean getLink() {
+        this.link = new LinkBean("self", "http://localhost:8080/Proyecto/webservice/ejercicios/" + this.getId() + "/tablas");
+        return link;
+    }
+
+    public void setLink(LinkBean link) {
+        this.link = link;
     }
 
 }
