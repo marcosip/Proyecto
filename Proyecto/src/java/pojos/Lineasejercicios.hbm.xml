@@ -4,12 +4,12 @@
 <!-- Generated 03-mar-2015 9:47:48 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojos.Lineasejercicio" table="lineasejercicios" catalog="rexia" optimistic-lock="version">
-        <id name="id" type="int">
+        <id name="id" type="java.lang.Integer">
             <column name="Id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <property name="tabla" type="int">
-            <column name="Tabla" not-null="true" />
+        <property name="tabla" type="java.lang.Integer">
+            <column name="Tabla"/>
         </property>
         <property name="dia" type="string">
             <column name="Dia" length="16" />
@@ -26,6 +26,8 @@
         <property name="peso" type="java.lang.Integer">
             <column name="Peso" />
         </property>
-        <one-to-one name="ejercicio" class="pojos.Ejercicio"></one-to-one>
+        <many-to-one class="pojos.Ejercicio" fetch="select" name="ejercicio">
+            <column name="Ejercicio"/>
+        </many-to-one>
     </class>
 </hibernate-mapping>

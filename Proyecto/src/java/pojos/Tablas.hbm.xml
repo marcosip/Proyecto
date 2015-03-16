@@ -1,36 +1,41 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 03-mar-2015 9:47:48 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="pojos.Tabla" table="tablas" catalog="rexia" optimistic-lock="version">
+    <class catalog="rexia" name="pojos.Tabla" optimistic-lock="version" table="tablas">
         <id name="id" type="java.lang.Integer">
             <column name="Id" />
-            <generator class="foreign">
-                <param name="property">monitores</param>
-            </generator>
-        </id>
-        <one-to-one name="monitor" class="pojos.Monitor" constrained="true"></one-to-one>
-        <property name="alumno" type="int">
-            <column name="Alumno" not-null="true" />
-        </property>
+            <generator class="identity" />
+        </id>        
+        <many-to-one class="pojos.Monitor" fetch="select" name="monitor">
+            <column name="Monitor"/>
+        </many-to-one>
+        <many-to-one class="pojos.Alumno" fetch="select" name="alumno">
+            <column name="Alumno"/>
+        </many-to-one>
         <property name="fechaCreacion" type="date">
-            <column name="FechaCreacion" length="10" />
+            <column length="10" name="FechaCreacion"/>
         </property>
-        <property name="fechainicio" type="date">
-            <column name="Fechainicio" length="10" />
+        <property name="fechaInicio" type="date">
+            <column length="10" name="Fechainicio"/>
         </property>
         <property name="fechaCambio" type="date">
-            <column name="FechaCambio" length="10" />
+            <column length="10" name="FechaCambio"/>
         </property>
         <property name="peso" type="big_decimal">
-            <column name="Peso" precision="5" />
+            <column name="Peso" precision="5"/>
         </property>
         <property name="estatura" type="java.lang.Integer">
-            <column name="Estatura" />
+            <column name="Estatura"/>
         </property>
         <property name="objetivos" type="string">
-            <column name="Objetivos" length="256" />
+            <column length="256" name="Objetivos"/>
         </property>
+        <!--<set cascade="all" fetch="select" lazy="true" name="lineasejercicios" table="lineaejercicio">
+            <key>
+                <column name="Tabla"/>
+            </key>
+            <one-to-many class="pojos.Lineasejercicio"/>
+        </set>-->
     </class>
 </hibernate-mapping>

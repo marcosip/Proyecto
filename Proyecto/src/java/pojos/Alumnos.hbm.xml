@@ -23,5 +23,11 @@
         <property name="cuadroClinico" type="string">
             <column name="CuadroClinico" length="256" />
         </property>
+        <!--<set fetch="select" inverse="false" lazy="true" name="tablas" table="tabla" cascade="all-delete-orphan">
+            <key>
+                <column name="Alumno"/>
+            </key>
+            <one-to-many class="pojos.Tabla"/>
+        </set>-->
     </class>
 </hibernate-mapping>

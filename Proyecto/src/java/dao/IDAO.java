@@ -9,7 +9,7 @@ package dao;
  *
  * @author usuario0305
  */
-public interface DAO {
+public interface IDAO {
     public void iniciaOperacion();
     public void finalizaOperacion();
     public int borrar(int id);

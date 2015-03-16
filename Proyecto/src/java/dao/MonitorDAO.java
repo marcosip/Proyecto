@@ -12,93 +12,74 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.eq;
-import pojos.Alumno;
+import pojos.Monitor;
 import proyecto.HibernateUtil;
 
 /**
  *
  * @author usuario0305
  */
-public class AlumnoDAO implements IDAO {
+public class MonitorDAO implements IDAO {
 
     private Session s;
     private Transaction t;
 
-    @Override
     public void iniciaOperacion() {
         s = HibernateUtil.getSessionFactory().openSession();
         t = s.beginTransaction();
     }
 
-    @Override
     public void finalizaOperacion() {
         t.commit();
         s.close();
     }
 
-    public Alumno obtenItem(int id) {
-        Alumno a;
+    public Monitor obtenItem(int id) {
+        Monitor a;
 
         iniciaOperacion();
-        a = (Alumno) s.createCriteria(Alumno.class).add(eq("id", id)).uniqueResult();
+        a = (Monitor) s.createCriteria(Monitor.class).add(eq("id", id)).uniqueResult();
         finalizaOperacion();
 
         return a;
     }
 
-    public List<Alumno> obtenListado() {
-        List<Alumno> lista;
+    public List<Monitor> obtenListado() {
+        List<Monitor> lista;
         iniciaOperacion();
-        lista = s.createCriteria(Alumno.class).list();
+        lista = s.createCriteria(Monitor.class).list();
         finalizaOperacion();
 
         return lista;
     }
 
-    /**
-     * Obtiene el listado de alumnos asociados a un monitor, es decir, la lista
-     * de alumnos a los cuales ha creado alguna tabla dicho monitor
-     * @param monitor Id del monitor
-     * @return Lista de alumnos
-     */
-    public List<Alumno> obtenListado(int monitor) {
-        List<Alumno> lista;
-        iniciaOperacion();
-        Query consulta = s.createSQLQuery("SELECT DISTINCT alumnos.* FROM alumnos RIGHT JOIN tablas ON alumnos.Id = tablas.Alumno WHERE tablas.Monitor = :idMonitor").addEntity(Alumno.class);
-        consulta.setParameter("idMonitor", monitor);
-        lista = consulta.list();
-        finalizaOperacion();
-        return lista;
-    }
-
-    public Alumno guardar(Alumno alumno) {
+    public Monitor guardar(Monitor monitor) {
         int id = 0;
         iniciaOperacion();
         try {
-            id = (int) s.save(alumno);
+            id = (int) s.save(monitor);
         } catch (HibernateException e) {
             t.rollback();
             System.out.println(e.getMessage());
         }
         finalizaOperacion();
 
-        alumno.setId(id);
+        monitor.setId(id);
 
-        return alumno;
+        return monitor;
     }
 
-    public Alumno actualizar(Alumno alumno) {
+    public Monitor actualizar(Monitor monitor) {
         iniciaOperacion();
-        s.update(alumno);
+        s.update(monitor);
         finalizaOperacion();
 
-        return alumno;
+        return monitor;
     }
 
-    @Override
     public int borrar(int id) {
         iniciaOperacion();
-        Query query = s.createSQLQuery("DELETE FROM alumnos WHERE id = :ID");
+        Query query = s.createSQLQuery("DELETE FROM monitores WHERE id = :ID");
         query.setParameter("ID", id);
         int result = query.executeUpdate();
         finalizaOperacion();
@@ -106,11 +87,10 @@ public class AlumnoDAO implements IDAO {
         return result;
     }
 
-    @Override
     public Number total() {
         Number total = 0;
         iniciaOperacion();
-        total = (Number) s.createCriteria(Alumno.class).setProjection(rowCount()).uniqueResult();
+        total = (Number) s.createCriteria(Monitor.class).setProjection(rowCount()).uniqueResult();
         finalizaOperacion();
         return total;
     }
