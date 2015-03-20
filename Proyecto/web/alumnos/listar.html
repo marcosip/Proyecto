@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.open("GET", "http://localhost:8080/Proyecto/webservice/alumnos", false);
+            xmlhttp.send();
+            xmlDoc = xmlhttp.responseXML;
+
+            document.write("<table><tr><th>Nombre</th><th>Apellidos</th><th>Tablas</th></tr>");
+            var x = xmlDoc.getElementsByTagName("alumno");
+            for (i = 0; i < x.length; i++)
+            {
+                document.write("<tr><td>");
+                document.write(x[i].getElementsByTagName("nombre")[0].childNodes[0].nodeValue);
+                document.write("</td><td>");
+                document.write(x[i].getElementsByTagName("apellidos")[0].childNodes[0].nodeValue);
+                document.write("</td></tr>");
+            }
+            //document.write("</td><td><a href='http://localhost:8080/Proyecto/webservice/tablas/alumno/"+x[i].getElementsByTagName("id")[0].getAttribute("id")+">Ver</a></td></tr>");
+
+            document.write("</table>");
+        </script>
+        <br/>
+        <a href="..\alumnos.html">Volver</a>
+        <span>|</span>
+        <a href="http://localhost:8080/Proyecto/webservice/alumnos">Fuente</a>
+    </body>
+</html>

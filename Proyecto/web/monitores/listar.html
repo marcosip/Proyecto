@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript">
+            //Redirrecciona a la página solicitada pasandole el token
+            function redirreccionar(token)
+            {
+                $.ajax({
+                    type: "GET", //Tipo de petición
+                    beforeSend: function (request)
+                    {
+                        request.setRequestHeader("token", token);               //Asignamos el parametro del header
+                    },
+                    url: "http://localhost:8080/Proyecto/webservice/monitores", //Url del recurso
+                    data: "json=" + escape(JSON.stringify(token)), //Formato de envio del header
+                    processData: false,
+                    dataType: "text", //Indicamos text para recibir el xml como texto en vez de como un objeto XML
+                    success: function (xml) {                                   //xml contiene la respuesta (el XML)
+                        if (xml !== undefined)
+                        {
+                            $("#monitores").html(xml);
+                        } else {
+                            $("#monitores").html("<div style='color:red'>ERROR: no se han encontrado elementos o el token no es válido.</div>");
+                        }
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <h3>Monitores</h3>
+        <!-- Credenciales -->
+        <h5>Introduzca su credencial para acceder</h5>
+        <input type="text" id="token" >
+        <input type="button" value="Ver alumno" onclick="redirreccionar(document.getElementById('token').value)">
+        <div id="monitores">
+
+        </div>
+        <br/>
+        <a href="..\monitores.html">Volver</a>
+        <span>|</span>
+        <a href="http://localhost:8080/Proyecto/webservice/monitores">Fuente</a>
+    </body>
+</html>

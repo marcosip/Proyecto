@@ -4,13 +4,19 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 /**
- * http://localhost:8080/Proyecto/webservice/<entidad>
+ * URL del proyecto:
+ * <br/>
+ * http://localhost:8080/Proyecto/webservice/
  *
  * @author usuario0305
  */
 @javax.ws.rs.ApplicationPath("webservice")
 public class ApplicationConfig extends Application {
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();

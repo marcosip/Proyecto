@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.util.List;
@@ -16,6 +11,7 @@ import pojos.Alumno;
 import proyecto.HibernateUtil;
 
 /**
+ * Clase DAO para el manejo de la tabla alumnos
  *
  * @author usuario0305
  */
@@ -36,6 +32,11 @@ public class AlumnoDAO implements IDAO {
         s.close();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Alumno obtenItem(int id) {
         Alumno a;
 
@@ -46,6 +47,10 @@ public class AlumnoDAO implements IDAO {
         return a;
     }
 
+    /**
+     *
+     * @return Lista de alumnos registrados en el sistema
+     */
     public List<Alumno> obtenListado() {
         List<Alumno> lista;
         iniciaOperacion();
@@ -72,6 +77,11 @@ public class AlumnoDAO implements IDAO {
         return lista;
     }
 
+    /**
+     *
+     * @param alumno
+     * @return
+     */
     public Alumno guardar(Alumno alumno) {
         iniciaOperacion();
         try {
@@ -85,6 +95,11 @@ public class AlumnoDAO implements IDAO {
         return alumno;
     }
 
+    /**
+     *
+     * @param alumno Alumno a modificar en la BBDD
+     * @return
+     */
     public Alumno actualizar(Alumno alumno) {
         iniciaOperacion();
         s.update(alumno);
@@ -93,6 +108,9 @@ public class AlumnoDAO implements IDAO {
         return alumno;
     }
 
+    /**
+     * Elimina un alumno de la BBDD
+     */
     @Override
     public int borrar(int id) {
         iniciaOperacion();
@@ -104,6 +122,9 @@ public class AlumnoDAO implements IDAO {
         return result;
     }
 
+    /**
+     * @return total Nº de alumnos registrados en la BBDD
+     */
     @Override
     public Number total() {
         Number total = 0;

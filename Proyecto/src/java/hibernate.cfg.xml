@@ -2,11 +2,16 @@
 <!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <!-- Dialecto correspondiente al SGBD -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- Driver para la conexión a la BBDD -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!-- URL de conexión a la BBDD -->
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3307/rexia?zeroDateTimeBehavior=convertToNull</property>
+        <!-- Credenciales para la conexión -->
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">usbw</property>
+        <!-- Lista de mapeos -->
         <mapping resource="pojos/Alumnos.hbm.xml"/>
         <mapping resource="pojos/Ejercicios.hbm.xml"/>
         <mapping resource="pojos/Monitores.hbm.xml"/>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.open("GET", "http://localhost:8080/Proyecto/webservice/tablas", false);
+            xmlhttp.send();
+            xmlDoc = xmlhttp.responseXML;
+
+            document.write("<table><tr>\n\
+                            <th>Fecha Inicio</th>\n\
+                            <th>Fecha Cambio</th>\n\
+                            <th>Peso</th>\n\
+                            <th>Estatura</th>\n\
+                            <th>Objetivos</th></tr>");
+            var x = xmlDoc.getElementsByTagName("tabla");
+            for (i = 0; i < x.length; i++)
+            {
+                document.write("<tr><td>");
+                document.write(x[i].getElementsByTagName("fechaInicio")[0].childNodes[0].nodeValue);
+                document.write("</td><td>");
+                document.write(x[i].getElementsByTagName("fechaCambio")[0].childNodes[0].nodeValue);
+                document.write("</td><td>");
+                document.write(x[i].getElementsByTagName("peso")[0].childNodes[0].nodeValue);
+                document.write("</td><td>");
+                document.write(x[i].getElementsByTagName("estatura")[0].childNodes[0].nodeValue);
+                document.write("</td><td>");
+                document.write(x[i].getElementsByTagName("objetivos")[0].childNodes[0].nodeValue);
+                document.write("</td>");
+                document.write("<td><a href='http://localhost:8080/Proyecto/webservice/tablas/1/lineas'>Detalles</a></td><tr>");
+            }
+            document.write("</table>");
+        </script>
+        <br/>
+        <a href="..\tablas.html">Volver</a>
+        <span>|</span>
+        <a href="http://localhost:8080/Proyecto/webservice/tablas">Fuente</a>
+    </body>
+</html>

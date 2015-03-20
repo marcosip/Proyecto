@@ -14,6 +14,7 @@ import pojos.Ejercicio;
 import proyecto.HibernateUtil;
 
 /**
+ * Clase DAO para el manejo de la tabla ejercicios
  *
  * @author usuario0305
  */
@@ -32,6 +33,11 @@ public class EjercicioDAO implements IDAO {
         s.close();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Ejercicio obtenItem(int id) {
         Ejercicio e;
 
@@ -42,6 +48,10 @@ public class EjercicioDAO implements IDAO {
         return e;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Ejercicio> obtenListado() {
         List<Ejercicio> lista;
         iniciaOperacion();

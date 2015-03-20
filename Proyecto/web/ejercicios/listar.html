@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Ejercicios</h1>
+        <script>
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.open("GET", "http://localhost:8080/Proyecto/webservice/ejercicios", false);
+            xmlhttp.send();
+            xmlDoc = xmlhttp.responseXML;
+
+            document.write("<table><tr><th>Nombre</th></tr>");
+            var x = xmlDoc.getElementsByTagName("ejercicio");
+            for (i = 0; i < x.length; i++)
+            {
+                document.write("<tr><td>");
+                document.write(x[i].getElementsByTagName("nombre")[0].childNodes[0].nodeValue);
+                document.write("</td></tr>");
+            }
+            document.write("</table>");
+        </script>
+        <br/>
+        <a href="..\ejercicios.html">Volver</a>
+        <span>|</span>
+        <a href="http://localhost:8080/Proyecto/webservice/ejercicios">Fuente</a>
+    </body>
+</html>

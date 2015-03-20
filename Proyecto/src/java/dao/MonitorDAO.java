@@ -16,6 +16,7 @@ import pojos.Monitor;
 import proyecto.HibernateUtil;
 
 /**
+ * Clase DAO para el manejo de la tabla monitores
  *
  * @author usuario0305
  */
@@ -34,6 +35,11 @@ public class MonitorDAO implements IDAO {
         s.close();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Monitor obtenItem(int id) {
         Monitor a;
 
@@ -46,8 +52,11 @@ public class MonitorDAO implements IDAO {
 
     /**
      * Devuelve el monitor correspondiente al hash pasado en caso de que exista
-     * @param hash 
-     * @return 
+     *
+     * @param hash Cadena con el hash formado por el nombre y los apellidos del
+     * monitor
+     * @return Devuelve el monitor que coincida con el hash especificado en caso
+     * de exisitr o null si no se encuentraf
      */
     public Monitor obtenItem(String hash) {
         Monitor m;
@@ -58,6 +67,10 @@ public class MonitorDAO implements IDAO {
         return m;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Monitor> obtenListado() {
         List<Monitor> lista;
         iniciaOperacion();
@@ -67,6 +80,11 @@ public class MonitorDAO implements IDAO {
         return lista;
     }
 
+    /**
+     *
+     * @param monitor
+     * @return
+     */
     public Monitor guardar(Monitor monitor) {
         iniciaOperacion();
         try {
@@ -80,6 +98,11 @@ public class MonitorDAO implements IDAO {
         return monitor;
     }
 
+    /**
+     *
+     * @param monitor
+     * @return
+     */
     public Monitor actualizar(Monitor monitor) {
         iniciaOperacion();
         s.update(monitor);
